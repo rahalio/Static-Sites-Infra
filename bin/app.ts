@@ -1,29 +1,18 @@
 import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
-import { StaticSitesStack, SiteConfig } from "../lib/static-sites-stack";
+import { StaticSiteWithCFAcmStack } from "../lib/static-site-cloudfront";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const app = new cdk.App();
 
-// Single site: voltgraph.com
-const sites: SiteConfig[] = [
-  {
-    siteName: "voltgraph-com",
-    sourcePath: "sites/voltgraph-com",
-    indexDocument: "index.html",
-    errorDocument: "404.html",
-    // bucketName: 'voltgraph-com-static-site' // (optional) set if you want a fixed name; must be globally unique
-  },
-];
+const account = process.env.CDK_ACCOUNT!;
+const region = process.env.CDK_REGION!;
 
-new StaticSitesStack(app, "StaticSitesStack", {
-  env: {
-    // account: process.env.CDK_DEFAULT_ACCOUNT,
-    // region: process.env.CDK_DEFAULT_REGION
-  },
-  sites,
-  defaultIndexDocument:
-    app.node.tryGetContext("defaultIndexDoc") ?? "index.html",
-  defaultErrorDocument: app.node.tryGetContext("defaultErrorDoc") ?? "404.html",
-  publicReadAccess: true,
+new StaticSiteWithCFAcmStack(app, "VoltgraphSiteStack", {
+  env: { account, region },
+  domainName: "voltgraph.com",
+  includeWww: true,
+  priceClass: "PriceClass_100",
   removalPolicy: "RETAIN",
 });

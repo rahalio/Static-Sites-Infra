@@ -1,1 +1,11 @@
 node_modules
+cdk.out
+dist
+.env
+cdk.context
+package-lock.json
+.vscode
+.DS_Store
+.idea
+*.log
+cdk.context.json
