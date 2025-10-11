@@ -2,6 +2,7 @@ node_modules
 cdk.out
 dist
 .env
+.env.aws
 cdk.context
 package-lock.json
 .vscode

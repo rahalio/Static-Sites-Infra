@@ -35,7 +35,9 @@ export class StaticSiteWithCFAcmStack extends cdk.Stack {
     });
 
     // Private S3 bucket to hold static site content (no public access)
+    const bucketName = `${domainName.replace(/\./g, "-")}-site-bucket`;
     const siteBucket = new s3.Bucket(this, "SiteBucket", {
+      bucketName,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       enforceSSL: true,
       versioned: false,

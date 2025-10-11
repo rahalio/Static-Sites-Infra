@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-STACK="${STACK:-VoltgraphSiteStack}"
+STACK="${STACK:-StaticSiteStack}"
 REGION="${REGION:-us-east-1}"
 PROFILE="${PROFILE:-prod}"
 OUTPUT_DIR="${OUTPUT_DIR:-site-dist}"
